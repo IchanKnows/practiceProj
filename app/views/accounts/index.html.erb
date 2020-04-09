@@ -1,0 +1,19 @@
+<h1>Account list</h1>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>NAME</th>
+		<th>MOTTO</th>
+	</tr>
+	<% @accounts.each do |account| %>
+	<tr>
+		<td><%= account.id %></td>
+		<td><%= account.name %></td>
+		<td><%= account.motto %></td>
+		<td><%= link_to 'edit', edit_account_path(account) %></td>
+		<td><%= link_to 'show', account_path(account) %></td>
+		<td><%= link_to 'delete', account_path(account), method: :delete, data: {confirm: "Are you sure you want to delete #{account.name} account?"} %></td>
+	</tr>
+	<% end %>
+</table>
+<p><%= link_to "Homepage", root_path %> | <%= link_to 'create new account', new_account_path %></p>
