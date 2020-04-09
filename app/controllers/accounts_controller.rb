@@ -1,5 +1,7 @@
 class AccountsController < ApplicationController
 
+	before_action :set_account, only: [:edit, :update, :show, :destroy] 
+
 	def new
 		@account = Account.new
 	end
@@ -15,15 +17,12 @@ class AccountsController < ApplicationController
 	end
 
 	def show
-		@account = Account.find(params[:id])
 	end
 
-	def edit
-		@account = Account.find(params[:id])	
+	def edit	
 	end
 
-	def update
-		@account = Account.find(params[:id])
+	def update		
 		if @account.update(account_params)
 			flash[:notice] = "account updated!"
 			redirect_to account_path(@account)
@@ -37,13 +36,15 @@ class AccountsController < ApplicationController
 	end
 
 	def destroy
-		@account = Account.find(params[:id])
 		@account.destroy
 		flash[:notice] = "account #{@account.name} successfully deleted!"
 		redirect_to accounts_path
 	end
 
 	private
+	def set_account
+		@account = Account.find(params[:id])	
+	end
 	def account_params
 		params.require(:account).permit(:name, :motto)	
 	end
