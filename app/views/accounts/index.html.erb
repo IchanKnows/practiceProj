@@ -1,19 +1,21 @@
-<h1>Account list</h1>
-<table>
-	<tr>
-		<th>ID</th>
-		<th>NAME</th>
-		<th>MOTTO</th>
-	</tr>
-	<% @accounts.each do |account| %>
-	<tr>
-		<td><%= account.id %></td>
-		<td><%= account.name %></td>
-		<td><%= account.motto %></td>
-		<td><%= link_to 'edit', edit_account_path(account) %></td>
-		<td><%= link_to 'show', account_path(account) %></td>
-		<td><%= link_to 'delete', account_path(account), method: :delete, data: {confirm: "Are you sure you want to delete #{account.name} account?"} %></td>
-	</tr>
-	<% end %>
-</table>
-<p><%= link_to "Homepage", root_path %> | <%= link_to 'create new account', new_account_path %></p>
+<h1 align="center">Listing of all accounts </h1>
+<% @accounts.each do |account| %>
+<div class="row">
+	<div class="col-xs-8 col-xs-offset-2">
+		<div class="well well-lg">
+			<div class="account-name">
+				<%= link_to account.name, account_path(account) %>
+			</div>
+			<div class="account-body">
+				<%= truncate(account.motto, length: 100) %>
+			</div>
+			<div class="account-actions">
+				<%= link_to "Edit this account", edit_account_path(account), class: "btn btn-xs btn-primary" %>
+				<%= link_to "Delete this account", account_path(account), method: :delete,
+				data: { confirm: "Are you sure you want to delete the account?"},
+				class: "btn btn-xs btn-danger" %>
+			</div>
+		</div>
+	</div>
+</div>
+<% end %> 
