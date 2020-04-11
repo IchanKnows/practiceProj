@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
 	def create
 		@account = Account.new(account_params)
 		if @account.save
-			flash[:notice] = "account created!"
+			flash[:success] = "account created!"
 			redirect_to account_path(@account)
 		else
 			render :new
@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
 
 	def update		
 		if @account.update(account_params)
-			flash[:notice] = "account updated!"
+			flash[:success] = "account updated!"
 			redirect_to account_path(@account)
 		else
 			render :edit
@@ -37,7 +37,7 @@ class AccountsController < ApplicationController
 
 	def destroy
 		@account.destroy
-		flash[:notice] = "account #{@account.name} successfully deleted!"
+		flash[:danger] = "account #{@account.name} successfully deleted!"
 		redirect_to accounts_path
 	end
 
