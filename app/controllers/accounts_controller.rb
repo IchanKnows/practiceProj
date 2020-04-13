@@ -18,6 +18,7 @@ class AccountsController < ApplicationController
 	end
 
 	def show
+		@accounts = Account.find(params[:id]) 
 	end
 
 	def edit	
