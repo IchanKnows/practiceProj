@@ -34,7 +34,8 @@ class AccountsController < ApplicationController
 	end
 
 	def index
-		@accounts = Account.all
+		# @accounts = Account.all
+		@accounts = Account.paginate(page: params[:page], per_page: 5)  
 	end
 
 	def destroy
