@@ -1,6 +1,8 @@
 class AccountsController < ApplicationController
 
-	before_action :set_account, only: [:edit, :update, :show, :destroy] 
+	before_action :set_account, only: [:edit, :update, :show, :destroy]
+	before_action :require_user, except: [:index, :show]
+	before_action :require_same_user, only: [:edit, :update, :destroy] 
 
 	def new
 		@account = Account.new
@@ -45,11 +47,21 @@ class AccountsController < ApplicationController
 	end
 
 	private
+	
 	def set_account
 		@account = Account.find(params[:id])	
 	end
+	
 	def account_params
 		params.require(:account).permit(:name, :motto)	
 	end
+	
+	def require_same_user
+		if current_user != @account.user
+			flash[:danger] = "You can only edit or delete your own articles"
+			redirect_to root_path
+		end
+
+	end 
 		
 end
